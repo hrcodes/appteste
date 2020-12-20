@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<script src="script.js"></script>
+<body onload="carregar()">
+ <div id="tudo">
+    <aside id="barraLateral">
+        <img id="logo" src="logo.png" />
+        <nav id="menuLateral">
+            <ul id="menuList">
+                <li><a href=""><img src="Dashboard.png">Dashboard</a></li>
+                <li><a href=""><img src="Mytask.png">My Task</a></li>
+                <li><a href=""><img src="Message.png">Message</a></li>
+                <li><a href=""><img src="Notification.png">Notification</a></li>
+                <li><a href=""><img src="Statistik.png">Statistik</a></li>
+                <li><a href=""><img src="MyFile.png">My File</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <section id="home">
+        <header id="cabecalho">
+            <input type="search" id="pesquisa" placeholder="Search"/>
+            <input type="image" src="equilizer.png" id="btnConfig">
+            <label id="data">Data</label>
+        </header>
+        <section class="title" id="TaskList">
+            <h1>My Task</h1>
+            <h2>Task List</h2> 
+            <article class="card">1</article>
+            <article class="card">2</article>           
+            <article class="card">3</article>           
+            <article class="card">4</article>           
+            <article class="card">+</article>           
+        </section>
+        <section class="title" id="TaskDone">
+            <h2>Task Done</h2>
+            <article class="card">1</article>           
+            <article class="card">2</article>           
+            <article class="card">3</article>           
+        </section>
+    </section>
+ </div>
+</body>
+</html>
