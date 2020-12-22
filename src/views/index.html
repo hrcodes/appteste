@@ -13,7 +13,7 @@
         <img id="logo" src="logo.png" />
         <nav id="menuLateral">
             <ul id="menuList">
-                <li><a href=""><img src="Dashboard.png">Dashboard</a></li>
+                <li><a href=""><img src="Dashboard.png">Dashboard</a></li> <!-- <figure> -->
                 <li><a href=""><img src="Mytask.png">My Task</a></li>
                 <li><a href=""><img src="Message.png">Message</a></li>
                 <li><a href=""><img src="Notification.png">Notification</a></li>
@@ -25,13 +25,18 @@
     <section id="home">
         <header id="cabecalho">
             <input type="search" id="pesquisa" placeholder="Search"/>
-            <input type="image" src="equilizer.png" id="btnConfig">
-            <label id="data">Data</label>
+            <input type="image" src="equilizer.png" id="btnConfig"> <!--<img>-->
+            <label id="data">Data</label>  <!-- tag timing -->
         </header>
         <section class="title" id="TaskList">
             <h1>My Task</h1>
             <h2>Task List</h2> 
-            <article class="card">1</article>
+
+            <div class='highIndicator' id="divhigh">high</div>
+            <div class='mediumIndicator' id="divmedium">medium</div>
+            <div class='lowIndicator' id="divlow">low</div>
+
+            <article class="card">1</article> <!-- ol + li -->
             <article class="card">2</article>           
             <article class="card">3</article>           
             <article class="card">4</article>           

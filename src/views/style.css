@@ -113,10 +113,35 @@ header input#btnConfig {
     /* border: solid; */
 }
 
+section#TaskList div{
+    color: white;
+    border-radius: 30px;
+    width: 50px;
+    height: 20px;
+    font-size: 11px;
+    text-align: center;
+    vertical-align: center;
+    float: right;
+    margin-right: 30px;
+}
+
+
+.lowIndicator{
+    background-color: #7FC7FC;
+}
+
+.mediumIndicator{
+    background-color: #F9A51A;
+}
+
+.highIndicator{
+    background-color: #F5450D;
+}
 .card {
     background-color: white;
     border-radius: 20px;
     width: 180px;
     height: 100px;
     margin: 30px;
+    /* float: left; */
 }
