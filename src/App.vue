@@ -70,6 +70,12 @@ body {
   background-attachment: fixed;
 }
 
+#app{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 aside#barraLateral {
   background-color: #f7f7f7;
   width: 200px;

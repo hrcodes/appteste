@@ -1,11 +1,11 @@
 <template>
   <main id="home">
     <header id="cabecalho">
-      <input type="search" id="pesquisa" placeholder="Search" />
-      <input type="image" src="equilizer.png" id="btnConfig" />
+      <input type="search" id="pesquisa" placeholder="Search"/>
       <!--<img>-->
-      <label id="data">Data</label>
+      <label id="data" class="direita">DATA </label> <!--{{ mydate }}</label> -->
       <!-- tag timing -->
+      <img src="/img/equilizer.png" id="btnConfig" class="direita"/>
     </header>
     <section class="title" id="TaskList">
       <h1>My Task</h1>
@@ -14,12 +14,8 @@
       <div class="highIndicator" id="divhigh">high</div>
       <div class="mediumIndicator" id="divmedium">medium</div>
       <div class="lowIndicator" id="divlow">low</div>
-      <ol>
-        <li class="card"></li>
-        <li class="card"></li>
-        <li class="card"></li>
-        <li class="card"></li>
-        <li class="card"></li>
+      <ol v-for="(card, idx) in card" :key="idx">
+        <li :class="card.class"> {{card.title}} </li>
       </ol>
     </section>
     <section class="title" id="TaskDone">
@@ -40,7 +36,46 @@ export default Vue.extend({
   name: 'Home',
   data() {
     return {
-
+      mydate: () => {
+        const month = [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December'];
+        const dtdata = new Date();
+        const txtdate = `${month[dtdata.getMonth()]} ${dtdata.getDay()} - ${dtdata.getFullYear()}`;
+        return txtdate;
+      },
+      card: [
+        {
+          class: 'card',
+          title: '1',
+        },
+        {
+          class: 'card',
+          title: '2',
+        },
+        {
+          class: 'card',
+          title: '3',
+        },
+        {
+          class: 'card',
+          title: '4',
+        },
+        {
+          class: 'card',
+          title: '5',
+        },
+      ],
     };
   },
 });
@@ -49,7 +84,7 @@ export default Vue.extend({
 <style lang="scss">
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Sniglet&display=swap");
-section#home {
+main#home {
   background-color: rgba(255, 255, 255, 0.3);
   width: 1000px;
   height: 768px;
@@ -62,15 +97,25 @@ section#home {
   /*border: solid;*/
 }
 
+header {
+  display: flex;
+  justify-content: flex-start;
+  border: solid;
+}
+
+.direita {
+  border: solid;
+  justify-self: flex-end;
+}
+
 header input#pesquisa {
-  //background: #fff url(search.png) no-repeat 12px;
+  background: #fff url(/img/search.png) no-repeat 12px;
   border-radius: 30px;
   border-style: hidden;
   height: 40px;
   width: 550px;
   margin-top: 20px;
   margin-left: 30px;
-  opacity: 1;
   padding-left: 50px;
   padding-right: 10px;
   font-size: 15px;
@@ -78,14 +123,12 @@ header input#pesquisa {
 }
 
 header label#data {
-  float: right;
   margin-top: 30px;
   margin-right: 20px;
   font-size: 13px;
 }
 
-header input#btnConfig {
-  float: right;
+header img#btnConfig {
   margin-top: 30px;
   margin-right: 40px;
   outline-style: none;
@@ -127,6 +170,8 @@ section#TaskList div {
   background-color: #f5450d;
 }
 .card {
+  display: flex;
+  flex-direction: row;
   background-color: white;
   border-radius: 20px;
   width: 180px;
