@@ -1,10 +1,12 @@
 <template>
   <div id="app">
     <aside class="sidebar">
+
       <img
         class="sidebar__image"
         :src="require('./assets/img/logo.png')"
-      /> <!-- srcset="" definir tamanhos por resolução -->
+      />  <!-- srcset="" definir tamanhos por resolução -->
+
       <nav class="sidebar__navigation">
         <ul class="sidebar__items">
           <li class="sidebar__item" v-for="(link, idx) in links" :key="idx">
@@ -16,6 +18,12 @@
           </li>
         </ul>
       </nav>
+
+      <img
+        class='sidebar__loggout'
+        :src="require('./assets/img/logout.png')"
+      />
+
     </aside>
     <router-view />
   </div>
@@ -91,18 +99,19 @@ body {
   border-bottom-left-radius: 30px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   margin: 10px 0 10px 10px;
   width: 200px;
   opacity: 0.8;
 
   &__image {
-    width: 100%;
-    height: 100px;
+    margin-top: 10%;
+    width: 90%;
   }
 
   &__items {
     list-style: none;
-    margin-top: 80px;
+    margin-top: -110%;
     margin-left: 0px;
     padding: 0px;
   }
@@ -125,6 +134,11 @@ body {
         color: red;
       }
     }
+  }
+
+  &__loggout {
+    margin-right: 45%;
+    margin-bottom: 35%;
   }
 }
 </style>
