@@ -80,11 +80,12 @@ body {
 }
 
 #app {
-  max-width: 600px;
+  max-width: 720px;
   display: flex;
 }
 
 .sidebar {
+  align-items: center;
   background-color: #f7f7f7;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;

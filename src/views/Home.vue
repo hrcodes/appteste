@@ -1,29 +1,29 @@
 <template>
   <main id="home">
-    <header id="cabecalho">
-      <input type="search" id="pesquisa" placeholder="Search"/>
-      <!--<img>-->
-      <time id="data" class="direita">{{ myDate }}</time>
-      <!-- tag timing -->
-      <img src="/img/equilizer.png" id="btnConfig" class="direita"/>
+    <header class="header">
+      <input class="header__search" type="search"  placeholder="Search"/>
+      <time class="header__time">{{ myDate }}</time>
+      <!-- tag <time datetime> mdn -->
+      <img class="header__image" src="/img/equilizer.png" id="btnConfig" />
     </header>
-    <section class="title" id="TaskList">
-      <h1>My Task</h1>
-      <h2>Task List</h2>
+    <section class="task-list">
+      <h1 class="title">My Task</h1>
+      <h2 class="subtitle subtitle--red">Task List</h2>
 
-      <div class="highIndicator" id="divhigh">high</div>
-      <div class="mediumIndicator" id="divmedium">medium</div>
-      <div class="lowIndicator" id="divlow">low</div>
+      <ul class="task-list__indicator">
+        <li class="indicator indicator--high">high</li>
+        <li class="indicator indicator--medium">medium</li>
+        <li class="indicator indicator--low">low</li>
+      </ul>
+
       <ol>
         <li v-for="(card, idx) in card" :key="idx" :class="card.class">{{card.title}}</li>
       </ol>
     </section>
-    <section class="title" id="TaskDone">
-      <h2>Task Done</h2>
+    <section class="task-done">
+      <h2 class="subtitle subtitle--red">Task Done</h2>
       <ol>
-        <li class="card"></li>
-        <li class="card"></li>
-        <li class="card"></li>
+        <li v-for="(card, idx) in card" :key="idx" :class="card.class">{{card.title}}</li>
       </ol>
     </section>
   </main>
@@ -83,6 +83,7 @@ export default Vue.extend({
 <style lang="scss">
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Sniglet&display=swap");
+
 main#home {
   background-color: rgba(255, 255, 255, 0.3);
   border-top-right-radius: 30px;
@@ -93,78 +94,79 @@ main#home {
   /*border: solid;*/
 }
 
-header {
+.header {
   display: flex;
   justify-content: flex-start;
-  border: solid;
+
+  &__search {
+    background: #fff url(/img/search.png) no-repeat 12px;
+    border-radius: 30px;
+    border-style: hidden;
+    height: 40px; //vamos mudar isso
+    margin-top: 20px;
+    margin-left: 30px;
+    padding-left: 50px;
+    padding-right: 10px;
+    font-size: 15px;
+    outline-style: none;
+  }
+
+  &__time {
+    margin-top: 30px;
+    margin-right: 20px;
+    font-size: 13px;
+  }
+
+  &__image {
+    margin-top: 30px;
+    margin-right: 40px;
+    outline-style: none;
+  }
 }
 
-.direita {
-  border: solid;
-  justify-self: flex-end;
-}
-
-header input#pesquisa {
-  background: #fff url(/img/search.png) no-repeat 12px;
-  border-radius: 30px;
-  border-style: hidden;
-  height: 40px;
-  width: 550px;
-  margin-top: 20px;
-  margin-left: 30px;
-  padding-left: 50px;
-  padding-right: 10px;
-  font-size: 15px;
-  outline-style: none;
-}
-
-header label#data {
-  margin-top: 30px;
-  margin-right: 20px;
-  font-size: 13px;
-}
-
-header img#btnConfig {
-  margin-top: 30px;
-  margin-right: 40px;
-  outline-style: none;
-}
-
-.title h1 {
+.title {
   margin-left: 35px;
   font-size: 25px;
 }
 
-.title h2 {
+.subtitle {
   margin-left: 35px;
   font-size: 13px;
+}
+
+.subtitle--red {
   color: rgb(252, 87, 10);
-  /* border: solid; */
 }
 
-section#TaskList div {
-  color: white;
+.task-list__indicator {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.indicator {
   border-radius: 30px;
-  width: 50px;
-  height: 20px;
+  color: white;
   font-size: 11px;
+  height: 20px;
+  line-height: 20px; // centraliza o texto ao height
+  margin-left: 20px;
+  width: 50px;
+  // padding: 0px 20px;  Usaria caso o usuario informasse o label
   text-align: center;
-  vertical-align: center;
-  float: right;
-  margin-right: 30px;
+
+  &--low {
+    background-color: #7fc7fc;
+  }
+
+  &--medium {
+    background-color: #f9a51a;
+  }
+
+  &--high {
+    background-color: #f5450d;
+  }
 }
 
-.lowIndicator {
-  background-color: #7fc7fc;
-}
-
-.mediumIndicator {
-  background-color: #f9a51a;
-}
-
-.highIndicator {
-  background-color: #f5450d;
-}
 .card {
   display: flex;
   flex-direction: row;
