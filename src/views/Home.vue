@@ -3,7 +3,7 @@
     <header id="cabecalho">
       <input type="search" id="pesquisa" placeholder="Search"/>
       <!--<img>-->
-      <label id="data" class="direita">DATA </label> <!--{{ mydate }}</label> -->
+      <time id="data" class="direita">{{ myDate }}</time>
       <!-- tag timing -->
       <img src="/img/equilizer.png" id="btnConfig" class="direita"/>
     </header>
@@ -14,8 +14,8 @@
       <div class="highIndicator" id="divhigh">high</div>
       <div class="mediumIndicator" id="divmedium">medium</div>
       <div class="lowIndicator" id="divlow">low</div>
-      <ol v-for="(card, idx) in card" :key="idx">
-        <li :class="card.class"> {{card.title}} </li>
+      <ol>
+        <li v-for="(card, idx) in card" :key="idx" :class="card.class">{{card.title}}</li>
       </ol>
     </section>
     <section class="title" id="TaskDone">
@@ -35,25 +35,24 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'Home',
   data() {
+    const dtdata = new Date();
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+
     return {
-      mydate: () => {
-        const month = [
-          'January',
-          'February',
-          'March',
-          'April',
-          'May',
-          'June',
-          'July',
-          'August',
-          'September',
-          'October',
-          'November',
-          'December'];
-        const dtdata = new Date();
-        const txtdate = `${month[dtdata.getMonth()]} ${dtdata.getDay()} - ${dtdata.getFullYear()}`;
-        return txtdate;
-      },
+      myDate: `${months[dtdata.getMonth()]} ${dtdata.getDay()} - ${dtdata.getFullYear()}`,
       card: [
         {
           class: 'card',
@@ -86,11 +85,8 @@ export default Vue.extend({
 @import url("https://fonts.googleapis.com/css2?family=Sniglet&display=swap");
 main#home {
   background-color: rgba(255, 255, 255, 0.3);
-  width: 1000px;
-  height: 768px;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
-  float: left;
   margin: 10px;
   margin-left: 0px;
   /*opacity: 0.3   -- mudaria todos os elementos da section*/

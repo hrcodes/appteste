@@ -1,12 +1,17 @@
 <template>
   <div id="app">
-    <aside id="barraLateral">
-      <img id="logo" src="/img/logo.png" />
-      <nav id="menuLateral">
-        <ul id="menuList">
-          <li v-for="(link, idx) in links" :key="idx">
-            <router-link :to="link.path"> <!-- no view usa "router-link to" no lugar de <a href!-->
-                <img :src="link.img" :alt="link.title" /> {{ link.title }}
+    <aside class="sidebar">
+      <img
+        class="sidebar__image"
+        :src="require('./assets/img/logo.png')"
+      /> <!-- srcset="" definir tamanhos por resolução -->
+      <nav class="sidebar__navigation">
+        <ul class="sidebar__items">
+          <li class="sidebar__item" v-for="(link, idx) in links" :key="idx">
+            <img :src="link.img" :alt="link.title" />
+            <router-link :to="link.path">
+              <!-- no view usa "router-link to" no lugar de <a href!-->
+              {{ link.title }}
             </router-link>
           </li>
         </ul>
@@ -16,7 +21,7 @@
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -62,69 +67,63 @@ export default Vue.extend({
 
 <style lang="scss">
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Sniglet&display=swap");
+@import '@/styles/reset';
+@import url('https://fonts.googleapis.com/css2?family=Sniglet&display=swap');
+
 body {
-  font-family: "Sniglet", cursive;
+  display: flex;
+  justify-content: center;
+  background-attachment: fixed;
   background-color: #eef1f3;
   background-image: linear-gradient(to bottom, #eef1f3, #fbe6d6, #f3d8cd);
-  background-attachment: fixed;
+  font-family: 'Sniglet', cursive;
 }
 
-#app{
+#app {
+  max-width: 600px;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
 }
 
-aside#barraLateral {
+.sidebar {
   background-color: #f7f7f7;
-  width: 200px;
-  height: 768px;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
-  margin: 10px;
-  margin-right: 0px;
-  float: left;
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 10px 10px;
+  width: 200px;
   opacity: 0.8;
-  /*border: solid;*/
-}
 
-nav#menuLateral {
-  display: block;
-  margin-left: 40px;
-  /*border: solid;*/
-}
+  &__image {
+    width: 100%;
+    height: 100px;
+  }
 
-img#logo {
-  /*color: #5A5858; funciona nao*/
-  margin-left: 20px;
-  margin-top: 9px;
-}
+  &__items {
+    list-style: none;
+    margin-top: 80px;
+    margin-left: 0px;
+    padding: 0px;
+  }
 
-nav#menuLateral ul {
-  list-style: none;
-  margin-top: 80px;
-  margin-left: 0px;
-  padding: 0px;
-  /*border: solid;*/
-}
+  &__item {
+    display: flex;
+    align-items: center;
+    padding-bottom: 45px;
 
-nav#menuLateral li {
-  padding-bottom: 45px;
-  /*border: solid;*/
-}
+    img {
+      margin-right: 8px;
+    }
 
-nav#menuLateral img {
-  margin-right: 8px;
-}
+    a {
+      text-decoration: none;
+      color: #5a5858;
 
-nav#menuLateral a {
-  text-decoration: none;
-  color: #5a5858;
-}
-
-nav#menuLateral a:hover {
-  text-decoration: none;
-  color: red;
+      &:hover {
+        text-decoration: none;
+        color: red;
+      }
+    }
+  }
 }
 </style>
