@@ -31,7 +31,6 @@
               <li>{{ card.face3 }}</li>
               <li>{{ card.face4 }}</li>
               <li>{{ card.morefaces }}</li>
-              <!-- <div :class='card.indicator'></div> -->
             </ul>
             <div :class='card.indicator'></div>
           </div>
