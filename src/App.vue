@@ -1,13 +1,11 @@
 <template>
   <div id="app">
     <aside class="sidebar">
-
+      <nav class="sidebar__navigation">
       <img
         class="sidebar__image"
         :src="require('./assets/img/logo.png')"
       />  <!-- srcset="" definir tamanhos por resolução -->
-
-      <nav class="sidebar__navigation">
         <ul class="sidebar__items">
           <li class="sidebar__item" v-for="(link, idx) in links" :key="idx">
             <img :src="link.img" :alt="link.title" />
