@@ -169,9 +169,6 @@ export default Vue.extend({
 </script>
 
 <style lang='scss'>
-@charset 'UTF-8';
-@import url('https://fonts.googleapis.com/css2?family=Sniglet&display=swap');
-
 main#home {
   background-color: rgba(255, 255, 255, 0.3);
   border-top-right-radius: 30px;
