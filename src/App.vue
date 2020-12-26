@@ -108,10 +108,7 @@ body {
   }
 
   &__items {
-    list-style: none;
-    margin-top: -110%;
-    margin-left: 0px;
-    padding: 0px;
+    margin-top: 45px;
   }
 
   &__item {
@@ -132,11 +129,6 @@ body {
         color: red;
       }
     }
-  }
-
-  &__loggout {
-    margin-right: 45%;
-    margin-bottom: 35%;
   }
 }
 </style>
