@@ -97,8 +97,10 @@ body {
   border-bottom-left-radius: 30px;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
-  margin: 10px 0 10px 10px;
+  padding: 10px 25px 25px;
+  text-align: center;
   width: 200px;
   opacity: 0.8;
 
