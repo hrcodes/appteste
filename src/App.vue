@@ -2,10 +2,10 @@
   <div id="app">
     <aside class="sidebar">
       <nav class="sidebar__navigation">
-      <img
-        class="sidebar__image"
-        :src="require('./assets/img/logo.png')"
-      />  <!-- srcset="" definir tamanhos por resolução -->
+        <img
+          class="sidebar__image"
+          :src="require('./assets/img/logo.png')"
+        />  <!-- srcset="" definir tamanhos por resolução -->
         <ul class="sidebar__items">
           <li class="sidebar__item" v-for="(link, idx) in links" :key="idx">
             <img :src="link.img" :alt="link.title" />
@@ -74,6 +74,9 @@ export default Vue.extend({
 <style lang="scss">
 @charset "UTF-8";
 @import '@/styles/reset';
+
+@import '@/styles/text';
+
 @import url('https://fonts.googleapis.com/css2?family=Sniglet&display=swap');
 
 body {
