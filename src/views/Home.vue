@@ -2,8 +2,8 @@
   <main id='home'>
     <header class='header'>
       <input class='header__search' type='search' placeholder='Search' />
-        <time class='header__time'>{{ myDate }}</time>
-        <!-- tag <time datetime> mdn -->
+      <time class='header__time'>{{ myDate }}</time>
+      <!-- tag <time datetime> mdn -->
       <img class='header__image' src='/img/equilizer.png' />
     </header>
 
