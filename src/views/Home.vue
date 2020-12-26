@@ -2,11 +2,9 @@
   <main id='home'>
     <header class='header'>
       <input class='header__search' type='search' placeholder='Search' />
-      <div class='header__right'>
         <time class='header__time'>{{ myDate }}</time>
         <!-- tag <time datetime> mdn -->
-        <img class='header__image' src='/img/equilizer.png' id='btnConfig' />
-      </div>
+      <img class='header__image' src='/img/equilizer.png' />
     </header>
 
     <h1 class='title magin-bot'>My Task</h1>
@@ -186,7 +184,7 @@ main#home {
 
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-top: 20px;
   margin-bottom: 30px;
@@ -200,15 +198,9 @@ main#home {
     width: 46%;
     padding-left: 50px;
     padding-right: 10px;
+    margin-right: auto;
     font-size: 15px;
     outline-style: none;
-  }
-
-  &__right {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-right: 3.4%;
   }
 
   &__time {
