@@ -7,8 +7,8 @@
       <img class='header__image' src='/img/equilizer.png' />
     </header>
 
-    <h1 class='title magin-bot'>My Task</h1>
-    <h2 class='subtitle subtitle--red'>Task List</h2>
+    <h1 class='text text--title'>My Task</h1>
+    <h2 class='text text--subtitle text--red'>Task List</h2>
 
     <section class='task-list'>
       <ul class='task-list__indicator'>
@@ -208,21 +208,6 @@ main#home {
     outline-style: none;
     padding-left: 20px;
   }
-}
-
-.title {
-  margin-left: 35px;
-  margin-bottom: 30px;
-  font-size: 25px;
-}
-
-.subtitle {
-  margin-left: 35px;
-  font-size: 13px;
-}
-
-.subtitle--red {
-  color: rgb(252, 87, 10);
 }
 
 .indicator {
