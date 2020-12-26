@@ -18,11 +18,11 @@
       </ul>
       <ol class='task-list__cards'>
         <li v-for='(card, idx) in card' :key='idx' :class='card.class'>
-          <ul class='card-item__titles card-item__spacing'>
-            <li class='card-item__title'>{{ card.title }}</li>
-            <li class='card-item__subtitle'>{{ card.subtitle }}</li>
-          </ul>
-          <div class='card-item__last-line'>
+          <header class='card-item__titles card-item__spacing'>
+            <h4 class='card-item__title'>{{ card.title }}</h4>
+            <p class='card-item__subtitle'>{{ card.subtitle }}</p>
+          </header>
+          <footer class='card-item__last-line'>
             <ul class='card-item__faces card-item__spacing'>
               <li>{{ card.face1 }}</li>
               <li>{{ card.face2 }}</li>
@@ -31,7 +31,7 @@
               <li>{{ card.morefaces }}</li>
             </ul>
             <div :class='card.indicator'></div>
-          </div>
+          </footer>
         </li>
       </ol>
     </section>
