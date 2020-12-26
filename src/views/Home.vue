@@ -37,10 +37,10 @@
     </section>
 
     <section class='task-list'>
-      <h2 class='subtitle subtitle--red'>Task Done</h2>
+      <h2 class='text text--subtitle text--red'>Task Done</h2>
       <ol class='task-list__cards'>
         <li v-for='(card, idx) in card' :key='idx' :class='card.class'>
-          {{ card.title }}
+          <h4 class='card-item__title'>{{ card.title }}</h4>
         </li>
       </ol>
     </section>
@@ -207,6 +207,7 @@ main#home {
   &__image {
     outline-style: none;
     padding-left: 20px;
+    margin-right: 3.4%;
   }
 }
 
