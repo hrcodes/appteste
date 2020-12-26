@@ -258,17 +258,16 @@ main#home {
 .card-item {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   background-color: white;
   border-radius: 20px;
   height: 100px;
   margin: 30px;
   width: 190px;
-  padding: 0px;
+  padding: 15px;
 
   &__title {
     font-size: 13px;
-    margin-top: 5px;
   }
 
   &__subtitle {
@@ -285,15 +284,6 @@ main#home {
   &__faces {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 7px;
-  }
-
-  &__indicator {
-    margin-right: 9%;
-  }
-
-  &__spacing {
-    margin-left: 9%;
   }
 }
 </style>
