@@ -168,7 +168,7 @@ export default Vue.extend({
 });
 </script>
 
-<style lang='scss'>
+<style lang='scss' scoped>
 main#home {
   background-color: rgba(255, 255, 255, 0.3);
   border-top-right-radius: 30px;
@@ -287,4 +287,9 @@ main#home {
     justify-content: space-between;
   }
 }
+
+.sidebar{
+  background-color: black;
+}
+
 </style>
