@@ -168,7 +168,7 @@ export default Vue.extend({
 });
 </script>
 
-<style lang='scss'>
+<style lang='scss' scop>
 main#home {
   background-color: rgba(255, 255, 255, 0.3);
   border-top-right-radius: 30px;
