@@ -10,7 +10,7 @@
           <li class="sidebar__item" v-for="(link, idx) in links" :key="idx">
             <img :src="link.img" :alt="link.title" />
             <router-link :to="link.path">
-              <!-- no view usa "router-link to" no lugar de <a href!-->
+              <!-- no vue usa "router-link to" no lugar de <a href!-->
               {{ link.title }}
             </router-link>
           </li>
@@ -74,7 +74,6 @@ export default Vue.extend({
 <style lang="scss">
 @charset "UTF-8";
 @import '@/styles/reset';
-
 @import '@/styles/text';
 @import '@/styles/indicator';
 

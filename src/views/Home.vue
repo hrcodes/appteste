@@ -169,7 +169,8 @@ export default Vue.extend({
       //
     },
     filter(level: string) {
-      console.log(level);
+      // console.log(level);
+      alert(level);
       // FILTRAR CARDS POR LEVEL
     },
   },
@@ -225,7 +226,7 @@ main#home {
 
   &__indicator {
     //agrupamento dos indicators
-    display: inherit;
+    display: flex;
     justify-content: flex-end;
     margin-right: 7.5%;
   }
