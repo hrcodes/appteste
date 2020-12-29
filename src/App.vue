@@ -1,13 +1,11 @@
 <template>
   <div id="app">
     <aside class="sidebar">
-
-      <img
-        class="sidebar__image"
-        :src="require('./assets/img/logo.png')"
-      />  <!-- srcset="" definir tamanhos por resolução -->
-
       <nav class="sidebar__navigation">
+        <img
+          class="sidebar__image"
+          :src="require('./assets/img/logo.png')"
+        />  <!-- srcset="" definir tamanhos por resolução -->
         <ul class="sidebar__items">
           <li class="sidebar__item" v-for="(link, idx) in links" :key="idx">
             <img :src="link.img" :alt="link.title" />
@@ -76,6 +74,9 @@ export default Vue.extend({
 <style lang="scss">
 @charset "UTF-8";
 @import '@/styles/reset';
+
+@import '@/styles/text';
+
 @import url('https://fonts.googleapis.com/css2?family=Sniglet&display=swap');
 
 body {
@@ -99,8 +100,10 @@ body {
   border-bottom-left-radius: 30px;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
-  margin: 10px 0 10px 10px;
+  padding: 10px 25px 25px;
+  text-align: center;
   width: 200px;
   opacity: 0.8;
 
@@ -110,10 +113,7 @@ body {
   }
 
   &__items {
-    list-style: none;
-    margin-top: -110%;
-    margin-left: 0px;
-    padding: 0px;
+    margin-top: 45px;
   }
 
   &__item {
@@ -134,11 +134,6 @@ body {
         color: red;
       }
     }
-  }
-
-  &__loggout {
-    margin-right: 45%;
-    margin-bottom: 35%;
   }
 }
 </style>

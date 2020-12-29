@@ -2,15 +2,13 @@
   <main id='home'>
     <header class='header'>
       <input class='header__search' type='search' placeholder='Search' />
-      <div class='header__right'>
-        <time class='header__time'>{{ myDate }}</time>
-        <!-- tag <time datetime> mdn -->
-        <img class='header__image' src='/img/equilizer.png' id='btnConfig' />
-      </div>
+      <time class='header__time'>{{ myDate }}</time>
+      <!-- tag <time datetime> mdn -->
+      <img class='header__image' src='/img/equilizer.png' />
     </header>
 
-    <h1 class='title magin-bot'>My Task</h1>
-    <h2 class='subtitle subtitle--red'>Task List</h2>
+    <h1 class='text text--title'>My Task</h1>
+    <h2 class='text text--subtitle text--red'>Task List</h2>
 
     <section class='task-list'>
       <ul class='task-list__indicator'>
@@ -20,11 +18,11 @@
       </ul>
       <ol class='task-list__cards'>
         <li v-for='(card, idx) in card' :key='idx' :class='card.class'>
-          <ul class='card-item__titles card-item__spacing'>
-            <li class='card-item__title'>{{ card.title }}</li>
-            <li class='card-item__subtitle'>{{ card.subtitle }}</li>
-          </ul>
-          <div class='card-item__last-line'>
+          <header class='card-item__titles card-item__spacing'>
+            <h4 class='card-item__title'>{{ card.title }}</h4>
+            <p class='card-item__subtitle'>{{ card.subtitle }}</p>
+          </header>
+          <footer class='card-item__last-line'>
             <ul class='card-item__faces card-item__spacing'>
               <li>{{ card.face1 }}</li>
               <li>{{ card.face2 }}</li>
@@ -33,16 +31,16 @@
               <li>{{ card.morefaces }}</li>
             </ul>
             <div :class='card.indicator'></div>
-          </div>
+          </footer>
         </li>
       </ol>
     </section>
 
     <section class='task-list'>
-      <h2 class='subtitle subtitle--red'>Task Done</h2>
+      <h2 class='text text--subtitle text--red'>Task Done</h2>
       <ol class='task-list__cards'>
         <li v-for='(card, idx) in card' :key='idx' :class='card.class'>
-          {{ card.title }}
+          <h4 class='card-item__title'>{{ card.title }}</h4>
         </li>
       </ol>
     </section>
@@ -170,10 +168,7 @@ export default Vue.extend({
 });
 </script>
 
-<style lang='scss'>
-@charset 'UTF-8';
-@import url('https://fonts.googleapis.com/css2?family=Sniglet&display=swap');
-
+<style lang='scss' scoped>
 main#home {
   background-color: rgba(255, 255, 255, 0.3);
   border-top-right-radius: 30px;
@@ -186,7 +181,7 @@ main#home {
 
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-top: 20px;
   margin-bottom: 30px;
@@ -200,15 +195,9 @@ main#home {
     width: 46%;
     padding-left: 50px;
     padding-right: 10px;
+    margin-right: auto;
     font-size: 15px;
     outline-style: none;
-  }
-
-  &__right {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-right: 3.4%;
   }
 
   &__time {
@@ -218,22 +207,8 @@ main#home {
   &__image {
     outline-style: none;
     padding-left: 20px;
+    margin-right: 3.4%;
   }
-}
-
-.title {
-  margin-left: 35px;
-  margin-bottom: 30px;
-  font-size: 25px;
-}
-
-.subtitle {
-  margin-left: 35px;
-  font-size: 13px;
-}
-
-.subtitle--red {
-  color: rgb(252, 87, 10);
 }
 
 .indicator {
@@ -284,17 +259,16 @@ main#home {
 .card-item {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   background-color: white;
   border-radius: 20px;
   height: 100px;
   margin: 30px;
   width: 190px;
-  padding: 0px;
+  padding: 15px;
 
   &__title {
     font-size: 13px;
-    margin-top: 5px;
   }
 
   &__subtitle {
@@ -311,15 +285,11 @@ main#home {
   &__faces {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 7px;
-  }
-
-  &__indicator {
-    margin-right: 9%;
-  }
-
-  &__spacing {
-    margin-left: 9%;
   }
 }
+
+.sidebar{
+  background-color: black;
+}
+
 </style>
