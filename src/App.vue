@@ -77,7 +77,15 @@ export default Vue.extend({
 
 @import '@/styles/text';
 
-@import url('https://fonts.googleapis.com/css2?family=Sniglet&display=swap');
+@import url('');
+//@import url('https://fonts.googleapis.com/css2?family=Sniglet&display=swap');
+@font-face {
+  font-family: 'Sniglet';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Sniglet-Regular.ttf') format('truetype');
+} //mesma coisa do comentario acima
 
 body {
   display: flex;
