@@ -1,57 +1,57 @@
 <template>
-  <main id='home'>
-    <header class='header'>
-      <input class='header__search' type='search' placeholder='Search' />
-      <time class='header__time'>{{ myDate }}</time>
+  <main id="home">
+    <header class="header">
+      <input class="header__search" type="search" placeholder="Search" />
+      <time class="header__time">{{ myDate }}</time>
       <!-- tag <time datetime> mdn -->
-      <img class='header__image' src='/img/equilizer.png' />
+      <img class="header__image" src="/img/equilizer.png" />
     </header>
 
-    <h1 class='text text--title'>My Task</h1>
-    <h2 class='text text--subtitle text--red'>Task List</h2>
+    <h1 class="text text--title">My Task</h1>
+    <h2 class="text text--subtitle text--red">Task List</h2>
 
-    <section class='task-list'>
-      <ul class='task-list__indicator'>
-        <li class='indicator indicator--low indicator--spacing'>low</li>
-        <li class='indicator indicator--medium indicator--spacing'>medium</li>
-        <li class='indicator indicator--high indicator--spacing'>high</li>
-      </ul>
-      <ol class='task-list__cards'>
-        <li v-for='(card, idx) in card' :key='idx' :class='card.class'>
-          <header class='card-item__titles card-item__spacing'>
-            <h4 class='card-item__title'>{{ card.title }}</h4>
-            <p class='card-item__subtitle'>{{ card.subtitle }}</p>
+    <section class="task-list">
+      <Indicator class="task-list__indicator" @selected="filter($event)" />
+      <ol class="task-list__cards">
+        <li v-for="(card, idx) in card" :key="idx" :class="card.class">
+          <header class="card-item__titles card-item__spacing">
+            <h4 class="card-item__title">{{ card.title }}</h4>
+            <p class="card-item__subtitle">{{ card.subtitle }}</p>
           </header>
-          <footer class='card-item__last-line'>
-            <ul class='card-item__faces card-item__spacing'>
+          <footer class="card-item__last-line">
+            <ul class="card-item__faces card-item__spacing">
               <li>{{ card.face1 }}</li>
               <li>{{ card.face2 }}</li>
               <li>{{ card.face3 }}</li>
               <li>{{ card.face4 }}</li>
               <li>{{ card.morefaces }}</li>
             </ul>
-            <div :class='card.indicator'></div>
+            <div :class="card.indicator"></div>
           </footer>
         </li>
       </ol>
     </section>
 
-    <section class='task-list'>
-      <h2 class='text text--subtitle text--red'>Task Done</h2>
-      <ol class='task-list__cards'>
-        <li v-for='(card, idx) in card' :key='idx' :class='card.class'>
-          <h4 class='card-item__title'>{{ card.title }}</h4>
+    <section class="task-list">
+      <h2 class="text text--subtitle text--red">Task Done</h2>
+      <ol class="task-list__cards">
+        <li v-for="(card, idx) in card" :key="idx" :class="card.class">
+          <h4 class="card-item__title">{{ card.title }}</h4>
         </li>
       </ol>
     </section>
   </main>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import Vue from 'vue';
+import Indicator from '@/components/Indicator.vue';
 
 export default Vue.extend({
   name: 'Home',
+  components: {
+    Indicator,
+  },
   data() {
     const dtdata = new Date();
     const months = [
@@ -70,9 +70,7 @@ export default Vue.extend({
     ];
 
     return {
-      myDate: `${
-        months[dtdata.getMonth()]
-      } ${dtdata.getDay()} - ${dtdata.getFullYear()}`,
+      myDate: `${months[dtdata.getMonth()]} ${dtdata.getDay()} - ${dtdata.getFullYear()}`,
       card: [
         {
           class: 'card-item',
@@ -165,10 +163,20 @@ export default Vue.extend({
       ],
     };
   },
+
+  methods: {
+    send() {
+      //
+    },
+    filter(level: string) {
+      console.log(level);
+      // FILTRAR CARDS POR LEVEL
+    },
+  },
 });
 </script>
 
-<style lang='scss' scop>
+<style lang="scss" scop>
 main#home {
   background-color: rgba(255, 255, 255, 0.3);
   border-top-right-radius: 30px;
@@ -208,33 +216,6 @@ main#home {
     outline-style: none;
     padding-left: 20px;
     margin-right: 3.4%;
-  }
-}
-
-.indicator {
-  display: inherit;
-  justify-content: center;
-  border-radius: 30px;
-  color: white;
-  font-size: 11px;
-  height: 18px;
-  line-height: 20px; // centraliza o texto ao height
-  width: 45px;
-
-  &--low {
-    background-color: #7fc7fc;
-  }
-
-  &--medium {
-    background-color: #f9a51a;
-  }
-
-  &--high {
-    background-color: #f5450d;
-  }
-
-  &--spacing {
-    margin-left: 1%;
   }
 }
 

@@ -1,0 +1,26 @@
+.indicator {
+  display: flex;
+  justify-content: center;
+  border-radius: 30px;
+  color: white;
+  font-size: 11px;
+  height: 18px;
+  line-height: 20px; // centraliza o texto ao height
+  width: 45px;
+
+  &--low {
+    background-color: #7fc7fc;
+  }
+
+  &--medium {
+    background-color: #f9a51a;
+  }
+
+  &--high {
+    background-color: #f5450d;
+  }
+
+  &--spacing {
+    margin-left: 1%;
+  }
+}
