@@ -38,7 +38,7 @@ export default Vue.extend({
         {
           title: 'Dashboard',
           img: '/img/dashboard.png',
-          path: '/',
+          path: '/dashboard',
         },
         {
           title: 'My Taks',
