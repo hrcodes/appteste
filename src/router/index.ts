@@ -10,6 +10,11 @@ const routes: Array<RouteConfig> = [
     name: 'Home',
     component: Home,
   },
+  {
+    path: '/dashboards',
+    name: 'Dashboards',
+    component: Home,
+  },
 ];
 
 const router = new VueRouter({

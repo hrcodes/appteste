@@ -11,13 +11,13 @@
     <h2 class="text text--subtitle text--red">Task List</h2>
 
     <section class="task-list">
-      <Indicator class="task-list__indicator" @selected="filter($event)" />
-      <Task class="task-list__cards" @clicktitle="showdescription($event)"/>
+      <Indicator @selected="filter($event)" />
+      <Task :tasks="dataApi" @clicktitle="showdescription($event)"/>
     </section>
 
     <section class="task-list">
       <h2 class="text text--subtitle text--red">Task Done</h2>
-      <Task class="task-list__cards" @clicktitle="showdescription($event)"/>
+      <Task :tasks="dataApi" @clicktitle="showdescription($event)"/>
     </section>
   </main>
 </template>
@@ -51,8 +51,113 @@ export default Vue.extend({
     ];
 
     return {
+      dataApi: [] as any,
       myDate: `${months[dtdata.getMonth()]} ${dtdata.getDay()} - ${dtdata.getFullYear()}`,
     };
+  },
+
+  // Estudar os hooks do lifecycle
+  created() {
+    setTimeout(() => {
+      this.dataApi = [
+        {
+          class: 'card-item',
+          title: 'Molly Moreas',
+          subtitle: 'Photo Shoot',
+          description: 'This is a card to make a photo shoot of the project and test out descriptions',
+          face1: '@',
+          face2: '@',
+          face3: '@',
+          face4: '@',
+          morefaces: '...',
+          indicator: 'indicator indicator--high card-item__indicator',
+        },
+        {
+          class: 'card-item',
+          title: 'Nike Lebron',
+          subtitle: 'Loading Page',
+          description: '',
+          face1: '',
+          face2: '',
+          face3: '',
+          face4: '',
+          morefaces: '',
+          indicator: '',
+        },
+        {
+          class: 'card-item',
+          title: 'BCA',
+          subtitle: 'Website Developer',
+          description: '',
+          face1: '',
+          face2: '',
+          face3: '',
+          face4: '',
+          morefaces: '',
+          indicator: '',
+        },
+        {
+          class: 'card-item',
+          title: 'Plainthing',
+          subtitle: '',
+          description: '',
+          face1: '',
+          face2: '',
+          face3: '',
+          face4: '',
+          morefaces: '',
+          indicator: '',
+        },
+        {
+          class: 'card-item',
+          title: '',
+          subtitle: '',
+          description: '',
+          face1: '',
+          face2: '',
+          face3: '',
+          face4: '',
+          morefaces: '',
+          indicator: '',
+        },
+        {
+          class: 'card-item',
+          title: 'Pharmacy Illustration',
+          subtitle: 'Ilustration',
+          description: '',
+          face1: '',
+          face2: '',
+          face3: '',
+          face4: '',
+          morefaces: '',
+          indicator: '',
+        },
+        {
+          class: 'card-item',
+          title: 'ESDM Video',
+          subtitle: 'Motion Graphic',
+          description: '',
+          face1: '',
+          face2: '',
+          face3: '',
+          face4: '',
+          morefaces: '',
+          indicator: '',
+        },
+        {
+          class: 'card-item',
+          title: 'Minerba',
+          subtitle: 'Motion Graphic',
+          description: '',
+          face1: '',
+          face2: '',
+          face3: '',
+          face4: '',
+          morefaces: '',
+          indicator: '',
+        },
+      ];
+    }, 1000);
   },
 
   methods: {
@@ -76,9 +181,7 @@ main#home {
   background-color: rgba(255, 255, 255, 0.3);
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
-  margin: 10px;
-  margin-left: 0px;
-  max-width: 1050px;
+  padding: 10px;
   /*opacity: 0.3   -- mudaria todos os elementos da section*/
 }
 
@@ -117,19 +220,10 @@ main#home {
 .task-list {
   display: flex;
   flex-direction: column;
+}
 
-  &__indicator {
-    //agrupamento dos indicators
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 7.5%;
-  }
-
-  &__cards {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
+.indicator-list {
+  justify-content: flex-end;
 }
 
 .sidebar{
