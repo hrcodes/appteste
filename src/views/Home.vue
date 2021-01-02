@@ -19,6 +19,7 @@
       <h2 class="text text--subtitle text--red">Task Done</h2>
       <Task :tasks="dataApi" @clicktitle="showdescription($event)"/>
     </section>
+    <SvgExample />
   </main>
 </template>
 
@@ -26,12 +27,14 @@
 import Vue from 'vue';
 import Indicator from '@/components/Indicator.vue';
 import Task from '@/components/Task.vue';
+import SvgExample from '@/components/SvgExample.vue';
 
 export default Vue.extend({
   name: 'Home',
   components: {
     Indicator,
     Task,
+    SvgExample,
   },
   data() {
     const dtdata = new Date();
