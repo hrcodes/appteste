@@ -38,7 +38,7 @@ export default Vue.extend({
         {
           title: 'Dashboard',
           img: '/img/dashboard.png',
-          path: '/',
+          path: '/dashboard',
         },
         {
           title: 'My Taks',
@@ -76,6 +76,7 @@ export default Vue.extend({
 @import '@/styles/reset';
 @import '@/styles/text';
 @import '@/styles/indicator';
+@import '@/styles/task';
 
 @import url('');
 //@import url('https://fonts.googleapis.com/css2?family=Sniglet&display=swap');

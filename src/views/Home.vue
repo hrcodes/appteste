@@ -11,34 +11,13 @@
     <h2 class="text text--subtitle text--red">Task List</h2>
 
     <section class="task-list">
-      <Indicator class="task-list__indicator" @selected="filter($event)" />
-      <ol class="task-list__cards">
-        <li v-for="(card, idx) in card" :key="idx" :class="card.class">
-          <header class="card-item__titles card-item__spacing">
-            <h4 class="card-item__title">{{ card.title }}</h4>
-            <p class="card-item__subtitle">{{ card.subtitle }}</p>
-          </header>
-          <footer class="card-item__last-line">
-            <ul class="card-item__faces card-item__spacing">
-              <li>{{ card.face1 }}</li>
-              <li>{{ card.face2 }}</li>
-              <li>{{ card.face3 }}</li>
-              <li>{{ card.face4 }}</li>
-              <li>{{ card.morefaces }}</li>
-            </ul>
-            <div :class="card.indicator"></div>
-          </footer>
-        </li>
-      </ol>
+      <Indicator @selected="filter($event)" />
+      <Task :tasks="dataApi" @clicktitle="showdescription($event)"/>
     </section>
 
     <section class="task-list">
       <h2 class="text text--subtitle text--red">Task Done</h2>
-      <ol class="task-list__cards">
-        <li v-for="(card, idx) in card" :key="idx" :class="card.class">
-          <h4 class="card-item__title">{{ card.title }}</h4>
-        </li>
-      </ol>
+      <Task :tasks="dataApi" @clicktitle="showdescription($event)"/>
     </section>
   </main>
 </template>
@@ -46,11 +25,13 @@
 <script lang="ts">
 import Vue from 'vue';
 import Indicator from '@/components/Indicator.vue';
+import Task from '@/components/Task.vue';
 
 export default Vue.extend({
   name: 'Home',
   components: {
     Indicator,
+    Task,
   },
   data() {
     const dtdata = new Date();
@@ -70,12 +51,20 @@ export default Vue.extend({
     ];
 
     return {
+      dataApi: [] as any,
       myDate: `${months[dtdata.getMonth()]} ${dtdata.getDay()} - ${dtdata.getFullYear()}`,
-      card: [
+    };
+  },
+
+  // Estudar os hooks do lifecycle
+  created() {
+    setTimeout(() => {
+      this.dataApi = [
         {
           class: 'card-item',
           title: 'Molly Moreas',
           subtitle: 'Photo Shoot',
+          description: 'This is a card to make a photo shoot of the project and test out descriptions',
           face1: '@',
           face2: '@',
           face3: '@',
@@ -87,6 +76,7 @@ export default Vue.extend({
           class: 'card-item',
           title: 'Nike Lebron',
           subtitle: 'Loading Page',
+          description: '',
           face1: '',
           face2: '',
           face3: '',
@@ -98,6 +88,7 @@ export default Vue.extend({
           class: 'card-item',
           title: 'BCA',
           subtitle: 'Website Developer',
+          description: '',
           face1: '',
           face2: '',
           face3: '',
@@ -109,6 +100,7 @@ export default Vue.extend({
           class: 'card-item',
           title: 'Plainthing',
           subtitle: '',
+          description: '',
           face1: '',
           face2: '',
           face3: '',
@@ -120,6 +112,7 @@ export default Vue.extend({
           class: 'card-item',
           title: '',
           subtitle: '',
+          description: '',
           face1: '',
           face2: '',
           face3: '',
@@ -131,6 +124,7 @@ export default Vue.extend({
           class: 'card-item',
           title: 'Pharmacy Illustration',
           subtitle: 'Ilustration',
+          description: '',
           face1: '',
           face2: '',
           face3: '',
@@ -142,6 +136,7 @@ export default Vue.extend({
           class: 'card-item',
           title: 'ESDM Video',
           subtitle: 'Motion Graphic',
+          description: '',
           face1: '',
           face2: '',
           face3: '',
@@ -153,6 +148,7 @@ export default Vue.extend({
           class: 'card-item',
           title: 'Minerba',
           subtitle: 'Motion Graphic',
+          description: '',
           face1: '',
           face2: '',
           face3: '',
@@ -160,8 +156,8 @@ export default Vue.extend({
           morefaces: '',
           indicator: '',
         },
-      ],
-    };
+      ];
+    }, 1000);
   },
 
   methods: {
@@ -173,6 +169,9 @@ export default Vue.extend({
       alert(level);
       // FILTRAR CARDS POR LEVEL
     },
+    showdescription(description: string) {
+      alert(description);
+    },
   },
 });
 </script>
@@ -182,9 +181,7 @@ main#home {
   background-color: rgba(255, 255, 255, 0.3);
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
-  margin: 10px;
-  margin-left: 0px;
-  max-width: 1050px;
+  padding: 10px;
   /*opacity: 0.3   -- mudaria todos os elementos da section*/
 }
 
@@ -223,51 +220,10 @@ main#home {
 .task-list {
   display: flex;
   flex-direction: column;
-
-  &__indicator {
-    //agrupamento dos indicators
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 7.5%;
-  }
-
-  &__cards {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
 }
 
-.card-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: white;
-  border-radius: 20px;
-  height: 100px;
-  margin: 30px;
-  width: 190px;
-  padding: 15px;
-
-  &__title {
-    font-size: 13px;
-  }
-
-  &__subtitle {
-    font-size: 9px;
-    margin-top: 10px;
-  }
-
-  &__last-line {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  &__faces {
-    display: flex;
-    justify-content: space-between;
-  }
+.indicator-list {
+  justify-content: flex-end;
 }
 
 .sidebar{

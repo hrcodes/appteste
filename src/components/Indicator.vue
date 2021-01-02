@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="indicator-list">
     <li v-for="level in levels"
       :key="level"
       @click="handleClick(level)"

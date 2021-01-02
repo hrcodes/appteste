@@ -1,0 +1,37 @@
+.card-list {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.card-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    border-radius: 20px;
+    height: 100px;
+    margin: 30px;
+    width: 190px;
+    padding: 15px;
+  
+    &__title {
+      font-size: 13px;
+    }
+  
+    &__subtitle {
+      font-size: 9px;
+      margin-top: 10px;
+    }
+  
+    &__last-line {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  
+    &__faces {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
