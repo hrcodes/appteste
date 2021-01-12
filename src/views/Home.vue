@@ -19,7 +19,7 @@
       <h2 class="text text--subtitle text--red">Task Done</h2>
       <Task :tasks="dataApi" @clicktitle="showdescription($event)"/>
     </section>
-    <SvgExample />
+    <!-- <SvgExample /> -->
   </main>
 </template>
 
@@ -27,15 +27,17 @@
 import Vue from 'vue';
 import Indicator from '@/components/Indicator.vue';
 import Task from '@/components/Task.vue';
-import SvgExample from '@/components/SvgExample.vue';
+// import SvgExample from '@/components/SvgExample.vue';
+import axios from 'axios';
 
 export default Vue.extend({
   name: 'Home',
   components: {
     Indicator,
     Task,
-    SvgExample,
+    // SvgExample,
   },
+
   data() {
     const dtdata = new Date();
     const months = [
@@ -54,127 +56,39 @@ export default Vue.extend({
     ];
 
     return {
-      dataApi: [] as any,
+      dataApi: [] as array,
       myDate: `${months[dtdata.getMonth()]} ${dtdata.getDay()} - ${dtdata.getFullYear()}`,
+      info: null,
     };
   },
 
-  // Estudar os hooks do lifecycle
   created() {
-    setTimeout(() => {
-      this.dataApi = [
-        {
-          class: 'card-item',
-          title: 'Molly Moreas',
-          subtitle: 'Photo Shoot',
-          description: 'This is a card to make a photo shoot of the project and test out descriptions',
-          face1: '@',
-          face2: '@',
-          face3: '@',
-          face4: '@',
-          morefaces: '...',
-          indicator: 'indicator indicator--high card-item__indicator',
-        },
-        {
-          class: 'card-item',
-          title: 'Nike Lebron',
-          subtitle: 'Loading Page',
-          description: '',
-          face1: '',
-          face2: '',
-          face3: '',
-          face4: '',
-          morefaces: '',
-          indicator: '',
-        },
-        {
-          class: 'card-item',
-          title: 'BCA',
-          subtitle: 'Website Developer',
-          description: '',
-          face1: '',
-          face2: '',
-          face3: '',
-          face4: '',
-          morefaces: '',
-          indicator: '',
-        },
-        {
-          class: 'card-item',
-          title: 'Plainthing',
-          subtitle: '',
-          description: '',
-          face1: '',
-          face2: '',
-          face3: '',
-          face4: '',
-          morefaces: '',
-          indicator: '',
-        },
-        {
-          class: 'card-item',
-          title: '',
-          subtitle: '',
-          description: '',
-          face1: '',
-          face2: '',
-          face3: '',
-          face4: '',
-          morefaces: '',
-          indicator: '',
-        },
-        {
-          class: 'card-item',
-          title: 'Pharmacy Illustration',
-          subtitle: 'Ilustration',
-          description: '',
-          face1: '',
-          face2: '',
-          face3: '',
-          face4: '',
-          morefaces: '',
-          indicator: '',
-        },
-        {
-          class: 'card-item',
-          title: 'ESDM Video',
-          subtitle: 'Motion Graphic',
-          description: '',
-          face1: '',
-          face2: '',
-          face3: '',
-          face4: '',
-          morefaces: '',
-          indicator: '',
-        },
-        {
-          class: 'card-item',
-          title: 'Minerba',
-          subtitle: 'Motion Graphic',
-          description: '',
-          face1: '',
-          face2: '',
-          face3: '',
-          face4: '',
-          morefaces: '',
-          indicator: '',
-        },
-      ];
-    }, 1000);
+  // fetch('https://api-node.codermarcos.repl.co/tasks')
+  //   .then((response) => response.json())
+  //   .then((banana) => { this.dataApi = banana; })
+  //   .catch((error) => { console.log(error); });
+
+    axios
+      .get('https://api-node.codermarcos.repl.co/tasks')
+      .then((response) => { this.dataApi = response.data; }) // console.log(response.data)); // )
+      .catch((error) => { console.log(error); });
   },
 
   methods: {
     send() {
       //
     },
+
     filter(level: string) {
       // console.log(level);
       alert(level);
       // FILTRAR CARDS POR LEVEL
     },
+
     showdescription(description: string) {
       alert(description);
     },
+
   },
 });
 </script>

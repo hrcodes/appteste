@@ -42,12 +42,12 @@ export default Vue.extend({
   name: 'SvgExample',
 
   methods: {
-    increase(e) {
+    increase(e: any) {
       // const circle = this.$refs['meu-circulo'];  -- nao é boa pratica
       const circle = e.target; // o emissor de qualquer evento é target
       circle.style.r = parseInt(circle.style.r, 10) + 10;
     },
-    decrease(e) {
+    decrease(e: any) {
       const circle = e.target;
       e.preventDefault();
       circle.style.r = 30;
