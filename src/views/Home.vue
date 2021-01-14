@@ -20,21 +20,41 @@
       <Task :tasks="dataApi" @clicktitle="showdescription($event)"/>
     </section>
     <!-- <SvgExample /> -->
+    <ApiCalls />
+    <div class="api">
+      <input id="InputTask" type="search" class="api__buttons"/>
+      <input id="InputSearch" type="button" class="api__buttons"
+        value="Buscar" v-on:click="search()"
+      >
+      <input id="InputDelete" type="button" class="api__buttons" value="Deletar" v-on:click="del()">
+      <input id="InputCreate" type="button" class="api__buttons" value="Criar" v-on:click="send()">
+      <input id="InputRefresh" type="button" class="api__buttons api__refresh"
+        value="Refresh" v-on:click="reload()"
+      >
+      <p id="res"></p>
+    </div>
   </main>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import Indicator from '@/components/Indicator.vue';
+import {
+  getTasks,
+  getTask,
+  delTask,
+  createTask,
+} from '@/services/api';
 import Task from '@/components/Task.vue';
+import Indicator from '@/components/Indicator.vue';
+import ApiCalls from '@/components/ApiCalls.vue';
 // import SvgExample from '@/components/SvgExample.vue';
-import axios from 'axios';
 
 export default Vue.extend({
   name: 'Home',
   components: {
     Indicator,
     Task,
+    ApiCalls,
     // SvgExample,
   },
 
@@ -56,7 +76,7 @@ export default Vue.extend({
     ];
 
     return {
-      dataApi: [] as array,
+      dataApi: [] as Array,
       myDate: `${months[dtdata.getMonth()]} ${dtdata.getDay()} - ${dtdata.getFullYear()}`,
       info: null,
     };
@@ -67,22 +87,52 @@ export default Vue.extend({
   //   .then((response) => response.json())
   //   .then((banana) => { this.dataApi = banana; })
   //   .catch((error) => { console.log(error); });
-
-    axios
-      .get('https://api-node.codermarcos.repl.co/tasks')
-      .then((response) => { this.dataApi = response.data; }) // console.log(response.data)); // )
-      .catch((error) => { console.log(error); });
+    getTasks() // usgin axios
+      .then((data) => {
+        this.dataApi = data;
+      });
   },
 
   methods: {
     send() {
-      //
+      // post
+      const newTask = {
+        class: 'card-item',
+        title: 'NovoCard',
+        subtitle: 'Este é um novo Card',
+        description: 'Nada',
+        indicator: 'low',
+      };
+
+      createTask(newTask);
+    },
+
+    search() {
+      const id = document.getElementById('InputTask').value;
+      getTask(id)
+        .then((data) => {
+          console.log(data);
+        });
+    },
+
+    del() {
+      const id = document.getElementById('InputTask').value;
+      delTask(id);
+      console.log(`id ${id} was deleted`);
+
+      // PORQUE ELE NAO RESPEITOU MEU TIMEOUT?
+      setTimeout((getTasks().then((e) => { console.log(e); }), 5000));
+    },
+
+    reload() {
+      // TERIA QUE RENDERIZAR DE NOVO?
+      // getTasks().then((data) => { this.dataApi = data; });
+      // this.$forceUpdate();
     },
 
     filter(level: string) {
-      // console.log(level);
       alert(level);
-      // FILTRAR CARDS POR LEVEL
+      // filtrar cards por level
     },
 
     showdescription(description: string) {
@@ -145,6 +195,20 @@ main#home {
 
 .sidebar{
   background-color: black;
+}
+
+.api {
+  display: flex;
+  margin-top: 2%;
+
+  &__buttons {
+    padding: 8px;
+    margin: 5px;
+  }
+
+  &__refresh {
+    margin-left: auto;
+  }
 }
 
 </style>
