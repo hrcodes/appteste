@@ -1,7 +1,13 @@
 <template>
   <main id="home">
     <header class="header">
-      <input class="header__search" type="search" placeholder="Search" />
+      <input
+        class="header__search"
+        type="search"
+        placeholder="Search"
+        :value="inputSearch"
+        @input.prevent="headerSearch($event.target.value)"
+      />
       <time class="header__time">{{ myDate }}</time>
       <!-- tag <time datetime> mdn -->
       <img class="header__image" src="/img/equilizer.png" />
@@ -12,27 +18,31 @@
 
     <section class="task-list">
       <Indicator @selected="filter($event)" />
-      <Task :tasks="dataApi" @clicktitle="showdescription($event)"/>
+      <TaskList
+        :tasks="dataApi"
+        @todelete="deletetask($event)"
+      />
     </section>
 
     <section class="task-list">
       <h2 class="text text--subtitle text--red">Task Done</h2>
-      <Task :tasks="dataApi" @clicktitle="showdescription($event)"/>
+      <TaskList
+        :tasks="dataApi"
+        @todelete="deletetask($event)"
+      />
     </section>
     <!-- <SvgExample /> -->
-    <ApiCalls />
-    <div class="api">
-      <input id="InputTask" type="search" class="api__buttons"/>
-      <input id="InputSearch" type="button" class="api__buttons"
-        value="Buscar" v-on:click="search()"
-      >
-      <input id="InputDelete" type="button" class="api__buttons" value="Deletar" v-on:click="del()">
-      <input id="InputCreate" type="button" class="api__buttons" value="Criar" v-on:click="send()">
-      <input id="InputRefresh" type="button" class="api__buttons api__refresh"
-        value="Refresh" v-on:click="reload()"
-      >
-      <p id="res"></p>
-    </div>
+    <!-- <ApiCalls /> -->
+    <!-- <p>{{ res }}</p> -->
+    <VModal>
+      <template v-slot:title>
+        <h1>Title</h1>
+      </template>
+      <FormTask />
+      <template v-slot:footer>
+        footer
+      </template>
+    </VModal>
   </main>
 </template>
 
@@ -44,17 +54,18 @@ import {
   delTask,
   createTask,
 } from '@/services/api';
-import Task from '@/components/Task.vue';
+import { Task } from '@/models/tasks';
+import TaskList from '@/components/TaskList.vue';
 import Indicator from '@/components/Indicator.vue';
-import ApiCalls from '@/components/ApiCalls.vue';
+import FormTask from '@/components/FormTask.vue';
 // import SvgExample from '@/components/SvgExample.vue';
 
 export default Vue.extend({
   name: 'Home',
   components: {
     Indicator,
-    Task,
-    ApiCalls,
+    TaskList,
+    FormTask,
     // SvgExample,
   },
 
@@ -76,9 +87,12 @@ export default Vue.extend({
     ];
 
     return {
-      dataApi: [] as Array,
+      dataApi: new Array<Task>(),
       myDate: `${months[dtdata.getMonth()]} ${dtdata.getDay()} - ${dtdata.getFullYear()}`,
       info: null,
+      inputTask: '',
+      inputSearch: '',
+      // res: '',
     };
   },
 
@@ -95,48 +109,95 @@ export default Vue.extend({
 
   methods: {
     send() {
+      /* -- o que estamos fazendo - ainda não é o ideal
+         1- O Estado local é o meu data = this.dataApi
+         2- Criar nova task local
+         3- Envio para a API - post
+         4- Atualizando meu estado local
+      */
       // post
-      const newTask = {
+      const newTask: Task = {
         class: 'card-item',
         title: 'NovoCard',
         subtitle: 'Este é um novo Card',
         description: 'Nada',
         indicator: 'low',
+        responsible: [],
       };
 
-      createTask(newTask);
-    },
-
-    search() {
-      const id = document.getElementById('InputTask').value;
-      getTask(id)
-        .then((data) => {
-          console.log(data);
+      createTask(newTask)
+        .then((id) => {
+          const task = { ...newTask, id };
+          this.dataApi.push(task);
         });
     },
 
+    search() {
+      // if (this.inputTask) {
+      getTask(this.inputTask)
+        .then((data) => {
+          console.log(data);
+        });
+      // } else {
+      //   alert('Valor Invalido');
+      // }
+    },
+
     del() {
-      const id = document.getElementById('InputTask').value;
-      delTask(id);
+      // const id = document.getElementById('InputTask').value; nao usa assim
+      delTask(this.inputTask)
+        .then((data) => {
+          console.log(data);
+          this.dataApi = data;
+        });
+      console.log(`id ${this.inputTask} was deleted`);
+    },
+
+    reload() { // ficou sem necessidade pq atualizei o dataApi no retorno do delTaks
+      getTasks().then((data) => { this.dataApi = data; });
+    },
+
+    // filter(level: string) {
+    // alert(level);
+    // filtrar cards por level
+    // },
+
+    // showdescription(description: string) {
+    //  alert(description);
+    // },
+
+    deletetask(id: string) {
+      delTask(id)
+        .then((data) => {
+          console.log(data);
+          this.dataApi = data;
+        });
       console.log(`id ${id} was deleted`);
-
-      // PORQUE ELE NAO RESPEITOU MEU TIMEOUT?
-      setTimeout((getTasks().then((e) => { console.log(e); }), 5000));
     },
 
-    reload() {
-      // TERIA QUE RENDERIZAR DE NOVO?
-      // getTasks().then((data) => { this.dataApi = data; });
-      // this.$forceUpdate();
-    },
+    headerSearch(value: string) {
+      // if (value.length > this.inputSearch.length) {
+      //   this.inputSearch = `${value}.`;
+      // } else {
+      //   this.inputSearch = value.substring(0, value.length - 1);
+      // }
 
-    filter(level: string) {
-      alert(level);
-      // filtrar cards por level
-    },
+      // isso faz com que meu input seja atualizado quando eu digito algo
+      this.inputSearch = value;
+      console.log(this.inputSearch);
 
-    showdescription(description: string) {
-      alert(description);
+      if (this.inputSearch) {
+        getTask(this.inputSearch)
+          .then((data) => {
+            console.log(data);
+            this.dataApi = [data]; // [ cria um array automatico ]
+          });
+      } else {
+        getTasks()
+          .then((data) => {
+            this.dataApi = data;
+          });
+      }
     },
 
   },

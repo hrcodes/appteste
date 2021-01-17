@@ -77,8 +77,6 @@ export default Vue.extend({
 @import '@/styles/text';
 @import '@/styles/indicator';
 @import '@/styles/task';
-
-@import url('');
 //@import url('https://fonts.googleapis.com/css2?family=Sniglet&display=swap');
 @font-face {
   font-family: 'Sniglet';
@@ -100,6 +98,14 @@ body {
 #app {
   max-width: 1280px;
   display: flex;
+}
+
+.overlay {
+  background-color: black;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  opacity: 0.3;
 }
 
 .sidebar {
