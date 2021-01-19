@@ -36,11 +36,11 @@
     <!-- <p>{{ res }}</p> -->
     <VModal>
       <template v-slot:title>
-        <h1>Title</h1>
+        <h1>It's time do create a new Taks!</h1>
       </template>
       <FormTask />
       <template v-slot:footer>
-        footer
+        <p class="footer-description">Create a new card</p>
       </template>
     </VModal>
   </main>
