@@ -1,5 +1,8 @@
 <template>
-  <dialog v-overlay="{ index : 0 }" :open="show" @overlayClicked="close()">
+  <dialog
+    v-overlay="{ index : 0 }"
+    :class="`modal ${classHide}`"
+    :open="show" @overlayClicked="close()">
     <header class="title">
       <slot name="title" />
       <button class="title__close" @click="close()">
@@ -22,6 +25,7 @@ export default {
   data() {
     return {
       show: true,
+      classHide: '',
     };
   },
 
@@ -29,13 +33,14 @@ export default {
     close() {
       console.log(this);
       this.show = false;
+      this.classHide = 'modal__hide';
     },
   },
 };
 </script>
 
 <style lang='scss' scoped>
-dialog {
+.modal {
   border-radius: 5px 30px;
   border-style: none;
   box-shadow: 0px 0px 15px #3e3e3e;
@@ -51,6 +56,10 @@ dialog {
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
   z-index: 1;
+
+  &__hide {
+    display: none;
+  }
 }
 
 .title {

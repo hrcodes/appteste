@@ -40,7 +40,12 @@
       <select v-model="newTask.indicator"
         :class="['formulary__fieldset-select', ErrorPriority]"
       >
-        <option v-for="(prio, idx) in priority" :key="idx">{{ prio }}</option>
+        <option
+          v-for="(prio, idx) in priority"
+          :key="idx"
+          :value="prio.class">
+            {{ prio.level }}
+        </option>
       </select>
     </fieldset>
 
@@ -68,10 +73,20 @@ export default Vue.extend({
     ];
 
     const priority = [
-      'Low',
-      'Medium',
-      'Hight',
+      {
+        level: 'Low',
+        class: 'indicator--low',
+      },
+      {
+        level: 'Medium',
+        class: 'indicator--medium',
+      },
+      {
+        level: 'High',
+        class: 'indicator--high',
+      },
     ];
+
     return {
       people,
       priority,

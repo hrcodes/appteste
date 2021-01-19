@@ -21,6 +21,7 @@
       <TaskList
         :tasks="dataApi"
         @todelete="deletetask($event)"
+        @clicktitle="showdescription($event)"
       />
     </section>
 
@@ -29,12 +30,14 @@
       <TaskList
         :tasks="dataApi"
         @todelete="deletetask($event)"
+        @clicktitle="showdescription($event)"
       />
     </section>
     <!-- <SvgExample /> -->
     <!-- <ApiCalls /> -->
-    <!-- <p>{{ res }}</p> -->
-    <VModal>
+    <!-- <VModal style="display: none"> -->
+      <VModal>
+      <!-- porque o overlay nao ficou oculto? -->
       <template v-slot:title>
         <h1>It's time do create a new Taks!</h1>
       </template>
@@ -163,9 +166,9 @@ export default Vue.extend({
     // filtrar cards por level
     // },
 
-    // showdescription(description: string) {
-    //  alert(description);
-    // },
+    showdescription(description: string) {
+      alert(description);
+    },
 
     deletetask(id: string) {
       delTask(id)

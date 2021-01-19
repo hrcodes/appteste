@@ -4,7 +4,7 @@
       <header class="card-item__titles card-item__spacing">
         <section class="card-item__first-line">
           <h4 class="card-item__title" @click="$emit('clicktitle', task.description)">
-              {{ task.title }} {{ task.id }}
+              #{{ task.id }} - {{ task.title }}
           </h4>
           <img class="card-item__title-img"
             :src="require('../assets/img/trash.svg')"
@@ -15,10 +15,9 @@
       </header>
       <footer class="card-item__last-line">
         <ul class="card-item__faces card-item__spacing">
-          <li>{{ task.face1 }}</li>
-          <li>{{ task.morefaces }}</li>
+          <li v-for="(responsible, idx) in task.responsible" :key="idx" >{{ responsible }}</li>
         </ul>
-        <div :class="task.indicator"></div>
+        <div :class="`indicator ${task.indicator}`"></div>
       </footer>
     </li>
   </ol>
