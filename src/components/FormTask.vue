@@ -1,5 +1,5 @@
 <template>
-  <form class="formulary"> <!-- @submit="checkForm"> -->
+  <form class="formulary" @submit="checkForm">
     <!-- v-model é só para twoWayBind -->
     <label v-if="errosFormulario.length" class="formulary__description">
       Please confirm:
@@ -7,41 +7,45 @@
         <li  v-for="(error, idx) in errosFormulario" :key="idx">{{ error }}</li>
       </ul>
     </label>
+    <label v-else class="formulary__description"></label>
 
     <fieldset class="formulary__fieldset">
       <label for="inputTitle" class="formulary__fieldset-label">Title: </label>
-      <input id="inputTitle" class="formulary__fieldset-input" required />
+      <input v-model="newTask.title" class="formulary__fieldset-input" required />
     </fieldset>
 
     <fieldset class="formulary__fieldset">
       <label for ="inputSubtitle" class="formulary__fieldset-label">SubTitle: </label>
-      <input id="inputSubtitle" class="formulary__fieldset-input" />
+      <input v-model="newTask.subtitle" id="inputSubtitle" class="formulary__fieldset-input" />
     </fieldset>
 
     <fieldset class="formulary__fieldset">
       <label for="txtDescription" class="formulary__fieldset-label">Description: </label>
       <textarea
-        id="txtDescription"
+        v-model="newTask.description"
         class="formulary__fieldset-input" rows="4" cols="30" required></textarea>
     </fieldset>
 
     <fieldset class="formulary__fieldset">
       <label class="formulary__fieldset-label">Responsable: </label>
-      <select v-model="selectedPeople" class="formulary__fieldset-select" re>
-        <option selected></option>
+      <select v-model="newTask.responsible"
+        :class="['formulary__fieldset-select', ErrorResponsible]"
+      >
         <option v-for="(ppl, idx) in people" :key="idx">{{ ppl }}</option>
       </select>
     </fieldset>
 
     <fieldset class="formulary__fieldset">
       <label class="formulary__fieldset-label">Priority: </label>
-      <select v-model="selectedPriority" class="formulary__fieldset-select">
+      <select v-model="newTask.indicator"
+        :class="['formulary__fieldset-select', ErrorPriority]"
+      >
         <option v-for="(prio, idx) in priority" :key="idx">{{ prio }}</option>
       </select>
     </fieldset>
 
     <fieldset class="formulary__fieldset-buttons">
-      <button type="submit" class="formulary__button" @click="checkForm">
+      <button type="submit" class="formulary__button">
         Criar
       </button>
       <button type="reset" class="formulary__button" @click="resetForm">
@@ -53,6 +57,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+// import { Task } from '@/models/tasks';
 
 export default Vue.extend({
   data() {
@@ -70,27 +75,50 @@ export default Vue.extend({
     return {
       people,
       priority,
-      selectedPeople: null,
-      selectedPriority: null,
       errosFormulario: [] as Array<string>,
+      ErrorResponsible: '',
+      ErrorPriority: '',
+      // newTask: new Object<Task>(),
+      newTask: {
+        class: 'card-item',
+        title: '',
+        subtitle: '',
+        description: '',
+        indicator: '',
+        responsible: [],
+      },
     };
   },
 
   methods: {
-    checkForm() {
-      this.errosFormulario = [];
+    checkForm(e: Event) {
+      e.preventDefault();
 
-      if (!this.selectedPeople) {
+      this.errosFormulario = [];
+      this.ErrorResponsible = '';
+      this.ErrorPriority = '';
+      this.newTask.class = 'card-item';
+
+      if (!this.newTask.responsible[0]) {
         this.errosFormulario.push('You need to select a Responsible!');
+        this.ErrorResponsible = 'formulary__fieldset-input-error';
       }
-      if (!this.selectedPriority) {
+      if (!this.newTask.indicator) {
         this.errosFormulario.push('You need to select a Priority!');
+        this.ErrorPriority = 'formulary__fieldset-input-error';
       }
-      // e.preventDefault();
+
+      if (this.newTask.responsible[0] && this.newTask.indicator) {
+        // console.log(this.newTask);
+        this.$emit('createTask', this.newTask);
+      }
     },
 
     resetForm() {
       this.errosFormulario = [];
+      // this.newTask.responsible[0] = '';
+      // this.newTask.indicator = '';
+      // COMO EU LIMPARIA ISSO?
     },
   },
 });
@@ -147,6 +175,10 @@ export default Vue.extend({
     font-size: 11pt;
     padding: 6px;
     width: 267px;
+  }
+
+  &__fieldset-input-error {
+    border-color: red;
   }
 
   &__fieldset-buttons {

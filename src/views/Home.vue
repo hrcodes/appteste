@@ -38,7 +38,7 @@
       <template v-slot:title>
         <h1>It's time do create a new Taks!</h1>
       </template>
-      <FormTask />
+      <FormTask @createTask="send($event)"/>
       <template v-slot:footer>
         <p class="footer-description">Create a new card</p>
       </template>
@@ -108,7 +108,7 @@ export default Vue.extend({
   },
 
   methods: {
-    send() {
+    send(newTask: Task) {
       /* -- o que estamos fazendo - ainda não é o ideal
          1- O Estado local é o meu data = this.dataApi
          2- Criar nova task local
@@ -116,14 +116,15 @@ export default Vue.extend({
          4- Atualizando meu estado local
       */
       // post
-      const newTask: Task = {
-        class: 'card-item',
-        title: 'NovoCard',
-        subtitle: 'Este é um novo Card',
-        description: 'Nada',
-        indicator: 'low',
-        responsible: [],
-      };
+      // const newTask: Task = {
+      //   class: 'card-item',
+      //   title: 'NovoCard',
+      //   subtitle: 'Este é um novo Card',
+      //   description: 'Nada',
+      //   indicator: 'low',
+      //   responsible: [],
+      // };
+      console.log(newTask);
 
       createTask(newTask)
         .then((id) => {
