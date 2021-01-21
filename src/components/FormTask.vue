@@ -1,5 +1,5 @@
 <template>
-  <form class="formulary" @submit="checkForm">
+  <form class="formulary" @submit.prevent="checkForm">
     <!-- v-model é só para twoWayBind -->
     <label v-if="errosFormulario.length" class="formulary__description">
       Please confirm:
@@ -11,12 +11,12 @@
 
     <fieldset class="formulary__fieldset">
       <label for="inputTitle" class="formulary__fieldset-label">Title: </label>
-      <input v-model="newTask.title" class="formulary__fieldset-input" required />
+      <input id="inputTitle" v-model="newTask.title" class="formulary__fieldset-input" required />
     </fieldset>
 
     <fieldset class="formulary__fieldset">
       <label for ="inputSubtitle" class="formulary__fieldset-label">SubTitle: </label>
-      <input v-model="newTask.subtitle" id="inputSubtitle" class="formulary__fieldset-input" />
+      <input id="inputSubtitle" v-model="newTask.subtitle" class="formulary__fieldset-input" />
     </fieldset>
 
     <fieldset class="formulary__fieldset">
@@ -106,9 +106,7 @@ export default Vue.extend({
   },
 
   methods: {
-    checkForm(e: Event) {
-      e.preventDefault();
-
+    checkForm() {
       this.errosFormulario = [];
       this.ErrorResponsible = '';
       this.ErrorPriority = '';

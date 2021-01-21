@@ -12,7 +12,8 @@
     <main>
       <!-- tudo que vier dentro da tag do componente de quem chama
       aparece no lugar desse slot: -->
-      <slot />
+      <slot :show="show" :close="close"/>
+      <!-- slot sem name é o default, qualquer dado vem direto pra ca -->
     </main>
     <footer class="bottom">
       <slot name="footer" />
@@ -31,7 +32,6 @@ export default {
 
   methods: {
     close() {
-      console.log(this);
       this.show = false;
       this.classHide = 'modal__hide';
     },

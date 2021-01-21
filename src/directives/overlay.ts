@@ -1,6 +1,8 @@
+let overlay: HTMLElement;
 const Overlay: Vue.DirectiveOptions = {
+
   inserted(e, binding) {
-    const overlay = document.createElement('div');
+    overlay = document.createElement('div');
 
     overlay.style.zIndex = (binding.value && binding.value.index) || 'auto';
     overlay.classList.add('overlay');
@@ -10,6 +12,10 @@ const Overlay: Vue.DirectiveOptions = {
     });
 
     document.body.appendChild(overlay);
+  },
+
+  unbind() {
+    overlay.remove();
   },
 };
 

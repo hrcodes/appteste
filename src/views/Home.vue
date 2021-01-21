@@ -13,13 +13,13 @@
       <img class="header__image" src="/img/equilizer.png" />
     </header>
 
-    <h1 class="text text--title">My Task</h1>
+    <h1 class="text text--title" @click="showdescription">My Task</h1>
     <h2 class="text text--subtitle text--red">Task List</h2>
 
     <section class="task-list">
       <Indicator @selected="filter($event)" />
       <TaskList
-        :tasks="dataApi"
+        :tasks="$store.state.tasks"
         @todelete="deletetask($event)"
         @clicktitle="showdescription($event)"
       />
@@ -28,35 +28,42 @@
     <section class="task-list">
       <h2 class="text text--subtitle text--red">Task Done</h2>
       <TaskList
-        :tasks="dataApi"
+        :tasks="$store.state.tasks"
         @todelete="deletetask($event)"
         @clicktitle="showdescription($event)"
       />
     </section>
+    <!-- {{ $store.state.name }} chamada da stores -->
     <!-- <SvgExample /> -->
     <!-- <ApiCalls /> -->
     <!-- <VModal style="display: none"> -->
-      <VModal>
+    <VModal>
       <!-- porque o overlay nao ficou oculto? -->
       <template v-slot:title>
         <h1>It's time do create a new Taks!</h1>
       </template>
-      <FormTask @createTask="send($event)"/>
+
+      <!-- O "data" que eu passei aqui vem da referencia do slot da VModal
+      <slot :show="show" :close="close"/> -->
+
+      <template v-slot:default="data">
+      <!-- <template v-slot:default="{ close }"> -->
+      <!-- { close } é o mesmo que trazer do VModal a funcao close() -->
+
+        <FormTask @createTask="send($event, data);" />
+        <!-- <FormTask @createTask="send($event);  close()" /> -->
+      </template>
+
       <template v-slot:footer>
         <p class="footer-description">Create a new card</p>
       </template>
     </VModal>
+
   </main>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {
-  getTasks,
-  getTask,
-  delTask,
-  createTask,
-} from '@/services/api';
 import { Task } from '@/models/tasks';
 import TaskList from '@/components/TaskList.vue';
 import Indicator from '@/components/Indicator.vue';
@@ -93,115 +100,51 @@ export default Vue.extend({
       dataApi: new Array<Task>(),
       myDate: `${months[dtdata.getMonth()]} ${dtdata.getDay()} - ${dtdata.getFullYear()}`,
       info: null,
-      inputTask: '',
       inputSearch: '',
       // res: '',
     };
   },
 
   created() {
-  // fetch('https://api-node.codermarcos.repl.co/tasks')
-  //   .then((response) => response.json())
-  //   .then((banana) => { this.dataApi = banana; })
-  //   .catch((error) => { console.log(error); });
-    getTasks() // usgin axios
-      .then((data) => {
-        this.dataApi = data;
-      });
+    // carrega os tasks da API
+    this.$store.dispatch('getTasks');
   },
 
   methods: {
-    send(newTask: Task) {
+
+    // ----------- criar uma nova task
+    send(newTask: Task, data: {show: boolean; close: () => void}) {
+      this.$store.dispatch('createTask', newTask);
+      data.close(); // data:{...} pra fechar o modal
+
       /* -- o que estamos fazendo - ainda não é o ideal
          1- O Estado local é o meu data = this.dataApi
          2- Criar nova task local
          3- Envio para a API - post
          4- Atualizando meu estado local
       */
-      // post
-      // const newTask: Task = {
-      //   class: 'card-item',
-      //   title: 'NovoCard',
-      //   subtitle: 'Este é um novo Card',
-      //   description: 'Nada',
-      //   indicator: 'low',
-      //   responsible: [],
-      // };
-      console.log(newTask);
-
-      createTask(newTask)
-        .then((id) => {
-          const task = { ...newTask, id };
-          this.dataApi.push(task);
-        });
     },
 
-    search() {
-      // if (this.inputTask) {
-      getTask(this.inputTask)
-        .then((data) => {
-          console.log(data);
-        });
-      // } else {
-      //   alert('Valor Invalido');
-      // }
-    },
-
-    del() {
-      // const id = document.getElementById('InputTask').value; nao usa assim
-      delTask(this.inputTask)
-        .then((data) => {
-          console.log(data);
-          this.dataApi = data;
-        });
-      console.log(`id ${this.inputTask} was deleted`);
-    },
-
-    reload() { // ficou sem necessidade pq atualizei o dataApi no retorno do delTaks
-      getTasks().then((data) => { this.dataApi = data; });
-    },
-
-    // filter(level: string) {
-    // alert(level);
-    // filtrar cards por level
-    // },
-
-    showdescription(description: string) {
-      alert(description);
-    },
-
+    // ----------- deletar uma task
     deletetask(id: string) {
-      delTask(id)
-        .then((data) => {
-          console.log(data);
-          this.dataApi = data;
-        });
-      console.log(`id ${id} was deleted`);
+      this.$store.dispatch('deleteTask', id);
     },
 
+    // ----------- pesquisa por id da task
     headerSearch(value: string) {
-      // if (value.length > this.inputSearch.length) {
-      //   this.inputSearch = `${value}.`;
-      // } else {
-      //   this.inputSearch = value.substring(0, value.length - 1);
-      // }
-
       // isso faz com que meu input seja atualizado quando eu digito algo
       this.inputSearch = value;
-      console.log(this.inputSearch);
 
       if (this.inputSearch) {
-        getTask(this.inputSearch)
-          .then((data) => {
-            console.log(data);
-            this.dataApi = [data]; // [ cria um array automatico ]
-          });
+        this.$store.dispatch('getTaskBySearch', this.inputSearch);
       } else {
-        getTasks()
-          .then((data) => {
-            this.dataApi = data;
-          });
+        this.$store.dispatch('getTasks');
       }
+    },
+
+    // ----------- mostrar a descrição do card
+    showdescription(description: string) {
+      alert(description);
     },
 
   },
@@ -229,13 +172,14 @@ main#home {
     background: #fff url(/img/search.png) no-repeat 12px;
     border-radius: 30px;
     border-style: hidden;
+    font-size: 15px;
     height: 40px; //vamos mudar isso
-    width: 46%;
+    margin-right: auto;
+    min-width: 200px;
+    outline-style: none;
     padding-left: 50px;
     padding-right: 10px;
-    margin-right: auto;
-    font-size: 15px;
-    outline-style: none;
+    width: 46%;
   }
 
   &__time {

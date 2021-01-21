@@ -42,3 +42,9 @@ export {
   delTask,
   createTask,
 };
+
+// Nativo no js
+// fetch('https://api-node.codermarcos.repl.co/tasks')
+//   .then((response) => response.json())
+//   .then((banana) => { this.dataApi = banana; })
+//   .catch((error) => { console.log(error); });
