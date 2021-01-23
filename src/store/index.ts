@@ -14,15 +14,15 @@ export default new Vuex.Store({
   strict: true,
   state: {
     // variáveis globais
-    tasks: [],
+    tasks: new Array<Task>(),
   },
   mutations: {
     // a forma de alterar essas variáveis
-    setTasks(state, tasks) {
+    setTasks(state, tasks: Array<Task>) {
       state.tasks = tasks;
     },
-    appendTasks(state, tasks) {
-      state.tasks.push(tasks);
+    appendTasks(state, task: Task) {
+      state.tasks.push(task);
     },
   },
   actions: {
@@ -49,7 +49,7 @@ export default new Vuex.Store({
     },
 
     // como passar params?  FILHO DA MAE É FORA DO { }
-    createTask({ commit }, newTask) {
+    createTask({ commit }, newTask: Task) {
       createTask(newTask)
         .then((id) => {
           const task = { ...newTask, id };

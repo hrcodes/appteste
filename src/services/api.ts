@@ -16,6 +16,14 @@ request.interceptors.response.use(
   },
 );
 
+request.interceptors.request.use(
+  (config) => {
+    // eslint-disable-next-line no-param-reassign
+    config.headers.authorization = `Basic ${localStorage.getItem('token')}`;
+    return config;
+  }, // success
+);
+
 function getTasks() {
   return request.get<Array<Task>>('/tasks')
     .then((r) => r.data);

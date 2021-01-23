@@ -59,6 +59,14 @@
       </template>
     </VModal>
 
+    <form class="authentication" @submit.prevent="login">
+      <label for="txtUser">User :</label>
+      <input v-model="inputUser" />
+      <label for="txtSenha">Senha:</label>
+      <input v-model="inputPwd" type="password" />
+      <button type="submit">Enviar</button>
+    </form>
+
   </main>
 </template>
 
@@ -101,6 +109,8 @@ export default Vue.extend({
       myDate: `${months[dtdata.getMonth()]} ${dtdata.getDay()} - ${dtdata.getFullYear()}`,
       info: null,
       inputSearch: '',
+      inputUser: '',
+      inputPwd: '',
       // res: '',
     };
   },
@@ -147,6 +157,10 @@ export default Vue.extend({
       alert(description);
     },
 
+    login() {
+      const token = btoa(`${this.inputUser}:${this.inputPwd}`);
+      localStorage.setItem('token', token);
+    },
   },
 });
 </script>
@@ -218,6 +232,12 @@ main#home {
   &__refresh {
     margin-left: auto;
   }
+}
+
+.authentication {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
 }
 
 </style>
